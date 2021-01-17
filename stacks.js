@@ -48,8 +48,6 @@ const colors = ["red", "blue", "green", "yellow"];
 const numbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
 
 const deck = new Stack(20);
-const Player1 = new Stack(5);
-const Player2 = new Stack(5);
 
 const random = (array) => {
   const randomIndex = Math.floor(Math.random() * array.length);
@@ -62,28 +60,10 @@ const addDeckCards = () => {
     //deck.length++;
   }
 };
-const addPlayer1Cards = () => {
-  //let x = deck.top;
-  while (!deck.isEmpty()) {
-    Player1.push(deck.top);
 
-    deck.pop();
-  }
-};
-const addePlayer2Cards = () => {
-  let x = deck.top;
-  while (!deck.isEmpty()) {
-    Player2.push(x);
-    P;
-    deck.pop();
-  }
-};
-for (let i = 1; i > deck.length; i++) {
-  addDeckCards();
-}
-for (let i = 1; i > Player1.length; i++) {
-  addPlayer1Cards();
-}
+addDeckCards();
+let Player1 = [];
+let Player2 = [];
 
 // for (let i = 1; i > Player1.length; i++) {
 //   addPlayer2Cards();
@@ -94,14 +74,14 @@ console.log("Player 1");
 console.log("-------------------------");
 
 for (let i = 1; i <= 5; i++) {
-  console.log(`${i} - ${Player1.peek()}`);
+  console.log(`${i} - ${Player1.push(deck.pop())}`);
 }
 console.log("-------------------------");
 console.log("Player 2");
 console.log("-------------------------");
 
 for (let i = 1; i <= 5; i++) {
-  console.log(`${i} - ${Player2.peek()}`);
+  console.log(`${i} - ${Player2.push(deck.pop())}`);
 }
 
 console.log("-------------------------");

@@ -1,57 +1,56 @@
+const prompt = require("prompt-sync")({ sigint: true });
+
 class Node {
-    constructor(data, next = null) {
-      this.data = data;
-      this.next = next;
-    }
+  constructor(age, highlight, next = null) {
+    this.age = age;
+    this.highlight = highlight;
+    this.next = next;
   }
-  
-  class LinkedList {
-    constructor(data) {
-      this.head = new Node(data);
+}
+
+class LinkedList {
+  constructor(age, highlight) {
+    this.head = new Node(age, highlight);
+  }
+
+  insertBeginning = (age, highlight) => {
+    const newNode = new Node(age, highlight, this.head);
+    this.head = newNode;
+  };
+
+  traverse = () => {
+    let current = this.head;
+    while (current) {
+      console.log(`Age: ${current.age}, highlight: ${current.highlight}`);
+      current = current.next;
     }
-  
-    insertBeginning = (data) => {
-      const newNode = new Node(data, this.head);
-      this.head = newNode;
-    };
-  
-    traverse = () => {
-      let arrayData = [];
-      let current = this.head;
-      while (current) {
-        arrayData.push(current.data);
+  };
+
+  insertHighlights = (age) => {
+    let current = this.head;
+    while (current.age < age) {
+      let currentAge = current.age + 1;
+      if (current.next && current.next.age === currentAge) {
         current = current.next;
-      }
-      return arrayData;
-    };
-  
-    remove = (data) => {
-      let current = this.head;
-      if (current.data === data) {
-        // Deleting node at the beginning
-        this.head = current.next;
       } else {
-        // Deleting node NOT in the beginning
-        while (current) {
-          let nextNode = current.next;
-          if (nextNode.data === data) {
-            // node found
-            current.next = nextNode.next;
-            current = null;
-          } else {
-            // node not found
-            current = nextNode;
-          }
-        }
+        let highlight = prompt(
+          `Enter the highlight for the age ${currentAge}?`
+        );
+        let newNode = new Node(currentAge, highlight, current.next);
+        current.next = newNode;
+        current = newNode;
       }
-    };
-  }
-  
-  const trip = new LinkedList("Kyoto");
-  trip.insertBeginning("Hiroshima");
-  trip.insertBeginning("Tokyo");
-  
-  console.log(trip.traverse());
-  trip.remove("Kyoto");
-  console.log(trip.traverse());
-  
+    }
+  };
+}
+
+const old = new LinkedList(7, "I got shorts");
+old.insertBeginning(3, "I can walking");
+old.insertBeginning(1, "I can crawling");
+old.insertBeginning(2, "I ca speakig");
+
+old.traverse();
+
+const age = prompt("How old are you?");
+old.insertHighlights(age);
+old.traverse();
